@@ -1,0 +1,852 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Digital Product Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout concept: centered, white, airy premium vault page. Hero text over a large library dashboard, then rhythmic sections on a 1140px column with soft purple glows. */
+:root{
+  --ink:#171329;
+  --purple:#6F3FD1;
+  --bright:#7C3AED;
+  --lilac:#F5F0FF;
+  --mist:#FAF8FF;
+  --bg:#FFFFFF;
+  --muted:#6B6875;
+  --line:#E8E2F0;
+  --green:#22A06B;
+  --green-bg:#EAF8F1;
+  --shadow:0 10px 40px -12px rgba(111,63,209,.18);
+  --shadow-sm:0 4px 18px -8px rgba(111,63,209,.14);
+  --glow:0 20px 60px -18px rgba(124,58,237,.45);
+  --font:'Inter','Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --wrap:1140px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3,h4,p{margin:0}
+section[id],footer[id]{scroll-margin-top:84px}
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:20px}
+.sec{padding-block:clamp(60px,8.5vw,108px)}
+.sec.tint{background:linear-gradient(180deg,var(--mist),#fff 70%)}
+.center{text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--purple);box-shadow:var(--shadow-sm)}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--purple)}
+.h1{font-size:clamp(40px,6.6vw,74px);line-height:1.04;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+.h2{font-size:clamp(30px,4.5vw,52px);line-height:1.08;letter-spacing:-.03em;font-weight:800;text-wrap:balance}
+.p{color:var(--purple)}
+.lead{color:var(--muted);font-size:clamp(16px,1.6vw,19px);max-width:660px;margin-inline:auto;text-wrap:pretty}
+.sec-head{display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:clamp(36px,5vw,56px)}
+.label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:18px 32px;border-radius:16px;font-weight:700;font-size:16px;letter-spacing:.01em;text-decoration:none;color:#fff;background:linear-gradient(135deg,#8B55F0,var(--purple));box-shadow:var(--glow);border:0;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;text-align:center}
+.btn:hover{transform:translateY(-2px);box-shadow:0 26px 60px -16px rgba(124,58,237,.6)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.ghost{background:#fff;color:var(--purple);border:1.5px solid var(--line);box-shadow:var(--shadow-sm)}
+.btn.ghost:hover{border-color:#cdbdf0}
+.btn.sm{padding:12px 20px;font-size:14px;border-radius:12px;box-shadow:var(--shadow-sm)}
+.btn.light{background:#fff;color:var(--purple);box-shadow:0 20px 50px -18px rgba(0,0,0,.5)}
+:focus-visible{outline:3px solid #b79cf5;outline-offset:3px;border-radius:10px}
+
+/* announcement */
+.ann{background:linear-gradient(90deg,#171329,#33196b 55%,#171329);color:#fff;text-align:center;font-size:13px;font-weight:600;letter-spacing:.03em;padding:10px 16px;display:block;text-decoration:none}
+.ann span{opacity:.75;font-weight:500;margin-left:10px}
+.ann b{font-weight:700}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:13px;letter-spacing:.06em;text-decoration:none;white-space:nowrap}
+.logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#8B55F0,#5a2fb8);display:grid;place-items:center;flex:none}
+.logo svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.links{display:flex;gap:30px}
+.links a{text-decoration:none;font-size:14px;font-weight:600;color:var(--muted);transition:color .2s}
+.links a:hover{color:var(--purple)}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.burger svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round}
+.menu{display:none;border-top:1px solid var(--line);background:#fff;padding:12px 20px 20px}
+.menu.open{display:block}
+.menu a:not(.btn){display:block;padding:14px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-weight:600}
+.menu .btn{width:100%;margin-top:16px}
+
+/* hero */
+.hero{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(40px,6vw,72px);background:radial-gradient(60% 50% at 50% 0%,#F1E9FF 0%,rgba(255,255,255,0) 70%)}
+.hero .stack{display:flex;flex-direction:column;align-items:center;gap:26px}
+.hero .sub{color:var(--muted);font-size:clamp(17px,1.8vw,20px);max-width:680px}
+.hero .sub strong{color:var(--ink);font-weight:600}
+.hero .support{color:var(--muted);font-size:16px;max-width:640px}
+.hero .support em{font-style:normal;color:var(--purple);font-weight:600}
+.fine{font-size:13px;color:var(--muted)}
+.pricebox{display:flex;align-items:center;gap:20px;padding:18px 28px;background:#fff;border:1.5px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.pricebox .amt{font-size:clamp(44px,6vw,60px);font-weight:800;letter-spacing:-.04em;color:var(--purple);line-height:1}
+.pricebox .meta{display:flex;flex-direction:column;gap:6px;text-align:left}
+.pricebox .meta b{font-size:12px;letter-spacing:.1em;font-weight:800;display:flex;align-items:center;gap:7px}
+.pricebox .meta b svg{width:15px;height:15px;stroke:var(--green);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* hero stage / dashboard */
+.stage{position:relative;margin-top:clamp(40px,6vw,72px);padding:clamp(18px,3vw,40px);border-radius:32px;background:linear-gradient(160deg,#F6F1FF,#EDE3FF 60%,#F9F5FF);border:1px solid var(--line);box-shadow:var(--glow)}
+.laptop{max-width:880px;margin-inline:auto;position:relative;z-index:2}
+.screen{background:#fff;border:10px solid #1d1830;border-bottom-width:12px;border-radius:18px 18px 6px 6px;overflow:hidden;box-shadow:0 30px 60px -24px rgba(23,19,41,.5)}
+.chrome{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#F7F4FC;border-bottom:1px solid var(--line)}
+.chrome i{width:9px;height:9px;border-radius:50%;background:#d9d0ea}
+.chrome span{margin-left:10px;font-size:11px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 12px;font-weight:500}
+.base{height:14px;margin-inline:-3%;background:linear-gradient(#cfc7de,#a79fb9);border-radius:0 0 18px 18px;box-shadow:0 18px 30px -14px rgba(23,19,41,.4)}
+.app{display:grid;grid-template-columns:150px 1fr;min-height:360px}
+.side{background:var(--mist);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--muted)}
+.side .t{font-size:13px;font-weight:800;color:var(--ink);padding:2px 8px 12px;line-height:1.2}
+.side div.i{display:flex;align-items:center;gap:8px;padding:8px;border-radius:9px}
+.side div.i svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.side div.i.on{background:#fff;color:var(--purple);box-shadow:var(--shadow-sm)}
+.main{padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--mist);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--muted)}
+.search svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex:none}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:11px 4px 9px;border-radius:12px;background:var(--lilac);border:1px solid #ece3fb;font-size:10.5px;font-weight:700;color:var(--ink);text-align:center;line-height:1.2;min-width:0}
+.tile:nth-child(3n){background:#EEE5FF}
+.tile svg{width:20px;height:20px;stroke:var(--purple);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.recent{display:flex;flex-direction:column;gap:8px}
+.recent h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.minis{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.stage .float{position:absolute;z-index:3;width:clamp(96px,12vw,140px);max-width:140px;filter:drop-shadow(0 20px 24px rgba(23,19,41,.28))}
+.stage .float.a{left:2.5%;top:12%;transform:rotate(-8deg)}
+.stage .float.b{left:1%;bottom:8%;transform:rotate(5deg);width:clamp(84px,10vw,120px)}
+.stage .float.c{right:2.5%;top:8%;transform:rotate(7deg)}
+.stage .float.d{right:1%;bottom:10%;transform:rotate(-5deg);width:clamp(84px,10vw,120px)}
+.stage .laptop{padding-inline:clamp(0px,7vw,110px)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:clamp(28px,4vw,44px)}
+.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 12px;text-align:center;box-shadow:var(--shadow-sm);transition:transform .2s}
+.stat:hover{transform:translateY(-3px)}
+.stat b{display:block;font-size:clamp(28px,3vw,36px);font-weight:800;letter-spacing:-.03em;color:var(--purple);line-height:1.1}
+.stat span{font-size:13.5px;color:var(--muted);font-weight:500}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow-sm);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-bottom:10px}
+.card p{color:var(--muted);font-size:15.5px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ico{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#8B55F0,var(--purple));display:grid;place-items:center;margin-bottom:20px;box-shadow:0 10px 22px -10px rgba(111,63,209,.7)}
+.ico svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ico.soft{background:var(--lilac);box-shadow:none}
+.ico.soft svg{stroke:var(--purple)}
+.num{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--purple);margin-bottom:14px;display:block}
+
+/* problem cards (pink-tinted border in reference, kept subtle purple) */
+.problem .card{padding:28px;border-color:#efe2f3}
+
+/* solution steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 34px}
+.step{position:relative}
+.step .bubble{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#8B55F0,var(--purple));color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;margin-bottom:16px;box-shadow:0 8px 18px -8px rgba(111,63,209,.8)}
+.step h3{font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--purple);margin-bottom:8px}
+.step:not(:nth-child(3n))::after{content:"";position:absolute;right:-28px;top:50%;width:22px;height:22px;transform:translateY(-50%);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C3AED' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.6}
+
+/* covers */
+.cvw{container-type:inline-size;width:100%}
+.cv{aspect-ratio:3/4;width:100%;border-radius:5cqw;position:relative;overflow:hidden;padding:9cqw;display:flex;flex-direction:column;gap:3cqw;--ac:#a78bfa;box-shadow:0 1px 0 rgba(255,255,255,.4) inset}
+.cv-k{font-size:4.4cqw;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.85;position:relative;z-index:2}
+.cv-t{font-size:12cqw;font-weight:800;line-height:1.02;letter-spacing:-.025em;position:relative;z-index:2}
+.cv-f{margin-top:auto;font-size:3.6cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.6;position:relative;z-index:2}
+.cv i{position:absolute;display:block}
+.t-dark{background:#14101f;color:#fff;--ac:#a78bfa}
+.t-light{background:#F3EEFB;color:#171329;--ac:#6F3FD1}
+.t-violet{background:linear-gradient(150deg,#8B55F0,#4a22a0);color:#fff;--ac:#e5d9ff}
+.t-sun{background:#FFB547;color:#2a1a00;--ac:#fff1d6}
+.t-green{background:#0e3b2d;color:#e6fff4;--ac:#6fe3ae}
+.t-rose{background:#F7D9E4;color:#5a1236;--ac:#c4306b}
+.t-ink{background:#1b2336;color:#eaf4ff;--ac:#7dd3fc}
+.t-red{background:#7a1d2b;color:#fff0e0;--ac:#ffb98a}
+.m-ring .cv-a{width:70%;aspect-ratio:1;border-radius:50%;border:5cqw solid var(--ac);right:-18%;bottom:-12%;opacity:.9}
+.m-ring .cv-b{width:16%;aspect-ratio:1;border-radius:50%;background:var(--ac);left:10%;bottom:16%}
+.m-bars .cv-a{left:9%;bottom:0;width:60%;height:34%;background:linear-gradient(90deg,var(--ac) 0 18%,transparent 18% 27%,var(--ac) 27% 45%,transparent 45% 54%,var(--ac) 54% 72%,transparent 72% 81%,var(--ac) 81% 100%);clip-path:polygon(0 60%,27% 60%,27% 30%,54% 30%,54% 0,100% 0,100% 100%,0 100%);opacity:.9}
+.m-bars .cv-b{right:9%;top:9%;width:10%;height:3.5%;background:var(--ac);border-radius:4px}
+.m-sun .cv-a{width:78%;aspect-ratio:1;border-radius:50%;background:var(--ac);left:11%;bottom:-34%;opacity:.95}
+.m-sun .cv-b{width:30%;aspect-ratio:1;border-radius:50%;border:3cqw solid var(--ac);right:8%;top:42%;opacity:.8}
+.m-grid .cv-a{inset:auto 0 0 0;height:38%;background:repeating-linear-gradient(90deg,var(--ac) 0 1.2cqw,transparent 1.2cqw 9cqw),repeating-linear-gradient(0deg,var(--ac) 0 1.2cqw,transparent 1.2cqw 9cqw);opacity:.45}
+.m-grid .cv-b{width:18%;aspect-ratio:1;background:var(--ac);right:9%;bottom:14%;border-radius:22%}
+.m-diag .cv-a{inset:auto -10% -6% -10%;height:42%;background:repeating-linear-gradient(-45deg,var(--ac) 0 2.4cqw,transparent 2.4cqw 7cqw);opacity:.8}
+.m-diag .cv-b{width:22%;height:3.5%;background:var(--ac);left:9%;bottom:46%;border-radius:4px}
+.m-arc .cv-a{width:90%;aspect-ratio:1;border-radius:50%;background:var(--ac);left:-30%;bottom:-40%;opacity:.9}
+.m-arc .cv-b{width:44%;aspect-ratio:1;border-radius:50%;border:3cqw solid var(--ac);right:-10%;bottom:12%;opacity:.7}
+
+/* marquee */
+.rows{display:flex;flex-direction:column;gap:20px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);padding-block:14px}
+.track{display:flex;gap:18px;width:max-content;animation:slide 60s linear infinite}
+.track.rev{animation-direction:reverse;animation-duration:70s}
+.track .cvw{width:clamp(130px,15vw,168px);flex:none;filter:drop-shadow(0 14px 18px rgba(23,19,41,.18))}
+@keyframes slide{to{transform:translateX(calc(-50% - 9px))}}
+.note{margin-top:22px;font-size:13px;color:var(--muted);text-align:center}
+
+/* pills */
+.pills{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:900px;margin-inline:auto}
+.pill{padding:12px 22px;border-radius:999px;border:1.5px solid #dccff5;background:#fff;color:var(--purple);font-weight:700;font-size:15px;box-shadow:var(--shadow-sm);transition:transform .2s,background .2s,color .2s}
+.pill:hover{transform:translateY(-2px);background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* cover gallery */
+.gal{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.gal .cvw{transition:transform .25s;filter:drop-shadow(0 14px 16px rgba(23,19,41,.16))}
+.gal .cvw:hover{transform:translateY(-6px) rotate(-1deg)}
+
+/* counted */
+.counted{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.count{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 20px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:6px}
+.count b{font-size:clamp(30px,3.4vw,42px);font-weight:800;letter-spacing:-.035em;color:var(--purple);line-height:1}
+.count span{font-size:14.5px;font-weight:600}
+.count.txt b{font-size:clamp(20px,2.2vw,25px);letter-spacing:-.02em;line-height:1.15}
+
+/* rights */
+.rights{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.rights .copy{display:flex;flex-direction:column;gap:18px;justify-content:center}
+.rights .copy p{color:var(--muted)}
+.ticks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-weight:600;font-size:16px}
+.ticks li svg{width:22px;height:22px;flex:none;padding:4px;border-radius:50%;background:var(--lilac);stroke:var(--purple);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.panel{background:linear-gradient(160deg,var(--lilac),#fff 80%);border:1.5px solid #dccff5;border-radius:26px;padding:clamp(26px,3.4vw,40px);box-shadow:var(--shadow)}
+.panel .label{display:block;margin-bottom:18px}
+.notice{margin-top:24px;padding:16px 18px;border-radius:14px;background:var(--green-bg);border:1px solid #bfe6d3;font-size:14.5px;color:#14543a;font-weight:500;display:flex;gap:12px;align-items:flex-start}
+.notice svg{width:20px;height:20px;flex:none;stroke:var(--green);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+
+/* benefits */
+.benefits{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.benefits .card{grid-column:span 2;padding:26px}
+.benefits .card:nth-child(n+4){grid-column:span 3}
+.benefits .card h3{margin:0;font-size:18px}
+
+/* value */
+.value{background:#fff;border:1.5px solid #dccff5;border-radius:32px;box-shadow:var(--glow);padding:clamp(28px,5vw,64px);background-image:radial-gradient(70% 60% at 50% 0%,#F3EBFF,rgba(255,255,255,0))}
+.value .list{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;max-width:720px;margin:36px auto 0}
+.value .list .row{display:flex;gap:12px;align-items:center;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;font-weight:600;font-size:15.5px;box-shadow:var(--shadow-sm)}
+.value .list .row svg{width:22px;height:22px;flex:none;padding:4px;border-radius:50%;background:var(--lilac);stroke:var(--purple);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.bigprice{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:38px}
+.bigprice b{font-size:clamp(68px,12vw,112px);font-weight:800;letter-spacing:-.05em;color:var(--purple);line-height:1}
+.bigprice span{font-size:13px;font-weight:800;letter-spacing:.14em}
+
+/* how */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.how .card{position:relative}
+.how .card:not(:last-child)::after{content:"";position:absolute;right:-30px;top:50%;width:22px;height:22px;transform:translateY(-50%);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C3AED' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;opacity:.6}
+.circ{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#8B55F0,var(--purple));color:#fff;font-weight:800;display:grid;place-items:center;margin-bottom:18px}
+
+/* income */
+.badge{display:inline-block;padding:8px 16px;border-radius:999px;background:#FFF4DC;border:1px solid #f1d9a0;color:#8a5a00;font-size:12px;font-weight:800;letter-spacing:.1em}
+.math{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.math .card{text-align:center;padding:34px 22px}
+.math .eq{font-size:15px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.math .res{font-size:clamp(30px,3.6vw,42px);font-weight:800;letter-spacing:-.03em;color:var(--purple);line-height:1.1}
+.math .res small{font-size:16px;font-weight:600;color:var(--muted);letter-spacing:0}
+.disc{max-width:720px;margin:30px auto 0;text-align:center;color:var(--muted);font-size:15px}
+.disc b{color:var(--ink)}
+
+/* who */
+.who{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.who .card{padding:26px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.who .card b{font-size:16.5px;font-weight:700}
+.who .tick{width:38px;height:38px;border-radius:50%;background:var(--green-bg);display:grid;place-items:center}
+.who .tick svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.not{display:flex;flex-direction:column;gap:12px;max-width:720px;margin-inline:auto}
+.not .row{display:flex;gap:16px;align-items:center;padding:18px 22px;border:1px solid #f0dde2;background:#fff;border-radius:16px;font-weight:600;box-shadow:var(--shadow-sm)}
+.not .row svg{width:30px;height:30px;flex:none;padding:7px;border-radius:50%;background:#FDECEF;stroke:#D6455D;fill:none;stroke-width:3;stroke-linecap:round}
+
+/* final offer */
+.offer{border:1.5px solid #cdbdf0;border-radius:34px;background:linear-gradient(160deg,#F3EBFF,#E9DCFF 55%,#F7F1FF);padding:clamp(34px,6vw,72px) clamp(20px,5vw,60px);box-shadow:var(--glow);display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+.offer .stack-t{color:var(--muted);max-width:560px;font-size:17px}
+.offer .stack-t b{color:var(--ink)}
+.small-row{font-size:13.5px;color:var(--muted);font-weight:600}
+
+/* faq */
+.faq{max-width:800px;margin-inline:auto;display:flex;flex-direction:column;gap:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);transition:box-shadow .2s,border-color .2s}
+details[open]{border-color:#d4c4f3;box-shadow:var(--shadow)}
+summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:20px;height:20px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236F3FD1' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .25s}
+details[open] summary::after{transform:rotate(180deg)}
+details .ans{padding:0 24px 22px;color:var(--muted);font-size:16px;max-width:680px}
+
+/* final cta */
+.final{background:linear-gradient(135deg,#171329,#3a1a7a 60%,#5a2fb8);color:#fff;border-radius:34px;padding:clamp(40px,7vw,88px) clamp(20px,5vw,60px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(167,139,250,.35),transparent);left:50%;top:-260px;transform:translateX(-50%)}
+.final>*{position:relative}
+.final p.s{color:#d9ccf5;font-size:18px;max-width:560px}
+.final .pr{font-size:clamp(64px,10vw,96px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.final .pr-l{font-size:13px;font-weight:800;letter-spacing:.14em;color:#d9ccf5}
+
+/* footer */
+footer{background:#120e20;color:#cfc7e0;padding-block:56px 36px;margin-top:clamp(60px,8vw,100px)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px}
+.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.foot a{text-decoration:none;font-size:15px;color:#cfc7e0}
+.foot a:hover{color:#fff}
+.foot .brand{color:#fff;margin-bottom:14px}
+.foot p{font-size:14.5px;max-width:300px}
+.mail{word-break:break-all}
+.copy-r{border-top:1px solid #2a2340;margin-top:40px;padding-top:24px;font-size:13px;color:#9a91b3;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* responsive */
+@media (max-width:1020px){
+  .links{display:none}.burger{display:inline-flex}.nav .cta-d{display:none}
+  .gal{grid-template-columns:repeat(4,1fr)}
+  .who{grid-template-columns:repeat(3,1fr)}
+  .counted{grid-template-columns:repeat(2,1fr)}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .grid3,.math,.how{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .step::after{display:none!important}
+  .how .card::after{display:none}
+  .rights{grid-template-columns:1fr}
+  .benefits{grid-template-columns:1fr}
+  .benefits .card,.benefits .card:nth-child(n+4){grid-column:auto}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats .stat:last-child{grid-column:span 2}
+  .stage .float{display:none}
+  .stage .laptop{padding-inline:0}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .app{grid-template-columns:1fr}
+  .side{display:none}
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .minis{grid-template-columns:repeat(3,1fr)}
+  .minis .cvw:nth-child(n+4){display:none}
+  .gal{grid-template-columns:repeat(2,1fr);gap:14px}
+  .steps{grid-template-columns:1fr}
+  .who{grid-template-columns:1fr 1fr}
+  .who .card:last-child{grid-column:span 2}
+  .counted{grid-template-columns:1fr 1fr;gap:12px}
+  .value .list{grid-template-columns:1fr}
+  .pricebox{flex-direction:column;gap:10px;padding:18px 24px;text-align:center;width:100%;max-width:360px}
+  .pricebox .meta{align-items:center;text-align:center}
+  .ctas{flex-direction:column;width:100%}
+  .ctas .btn,.offer .btn,.final .btn{width:100%}
+  .brand{font-size:11px;letter-spacing:.04em}
+  .foot{grid-template-columns:1fr}
+  .stage{border-radius:22px}
+  .ann span{display:block;margin:2px 0 0}
+  summary{font-size:16px;padding:18px}
+  details .ans{padding:0 18px 20px}
+  .card{padding:24px}
+  .tile{font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .track{animation:none}
+  .rows{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+  .rise{animation:none}
+  .btn,.card,.stat,.pill,.gal .cvw{transition:none}
+}
+</style>
+
+<a class="ann" href="[CHECKOUT_URL]"><b>THE DIGITAL PRODUCT LIBRARY — GET INSTANT ACCESS FOR ₹499</b><span>One-time payment • Instant access →</span></a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="The Idea Co."><span class="logo"><svg viewBox="0 0 24 24"><path d="M4 5h4v14H4zM10 5h4v14h-4z"/><path d="M16.5 6.5l3.5 1-3 11.5-3.5-1z"/></svg></span>THE IDEA CO.</a>
+    <nav class="links" aria-label="Main">
+      <a href="#whats-inside">What's Inside</a>
+      <a href="#niches">Niches</a>
+      <a href="#resources">Resources</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#faqs">FAQs</a>
+    </nav>
+    <a class="btn sm cta-d" href="[CHECKOUT_URL]">GET ACCESS — ₹499</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <div class="menu" id="menu">
+    <a href="#whats-inside">What's Inside</a>
+    <a href="#niches">Niches</a>
+    <a href="#resources">Resources</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#faqs">FAQs</a>
+    <a class="btn" href="[CHECKOUT_URL]">GET ACCESS — ₹499</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="stack center">
+      <span class="eyebrow rise">THE DIGITAL PRODUCT LIBRARY</span>
+      <h1 class="h1 rise d1">200+ Digital Products.<br><span class="p">Ready To Customize, Brand &amp; Sell.</span></h1>
+      <p class="sub rise d2"><strong>Stop creating every digital product from scratch.</strong> Get access to a growing library of ready-to-use digital products, guides, PDFs, content resources, reels, creator assets, templates, mockups and more — all organized in one place.</p>
+      <p class="support rise d2">Build your digital-product business faster with ready-made products you can customize, package and sell according to the included license terms, plus guides, tutorials and step-by-step learning resources to help you get started. <em>Turn ready-made digital products into your own offers and build towards your first ₹1,000–₹2,000/day.</em><br><span class="fine">Results vary. No income or sales are guaranteed.</span></p>
+      <div class="pricebox rise d3">
+        <div class="amt">₹499</div>
+        <div class="meta">
+          <b><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>ONE-TIME PAYMENT</b>
+          <b><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>INSTANT DIGITAL ACCESS</b>
+        </div>
+      </div>
+      <div class="ctas rise d3">
+        <a class="btn" href="[CHECKOUT_URL]">GET THE FULL LIBRARY — ₹499 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#whats-inside">SEE WHAT'S INSIDE ↓</a>
+      </div>
+    </div>
+
+    <div class="stage" aria-label="Preview of the Digital Product Library dashboard">
+      <div class="float a cvw" data-cover="0"></div>
+      <div class="float b cvw" data-cover="3"></div>
+      <div class="float c cvw" data-cover="1"></div>
+      <div class="float d cvw" data-cover="8"></div>
+      <div class="laptop">
+        <div class="screen">
+          <div class="chrome"><i></i><i></i><i></i><span>The Digital Product Library</span></div>
+          <div class="app">
+            <aside class="side">
+              <div class="t">Digital Product<br>Library</div>
+              <div class="i on" data-i="grid">Explore Niches</div>
+              <div class="i" data-i="book">Ebooks</div>
+              <div class="i" data-i="file">Guides</div>
+              <div class="i" data-i="tpl">Templates</div>
+              <div class="i" data-i="video">Mockups</div>
+              <div class="i" data-i="star">Covers</div>
+              <div class="i" data-i="tool">Creator Tools</div>
+            </aside>
+            <div class="main">
+              <div class="search"><svg viewBox="0 0 24 24"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg>Search products, niches, templates…</div>
+              <div class="tiles" id="tiles"></div>
+              <div class="recent"><h4>Product covers</h4><div class="minis" id="minis"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="base"></div>
+      </div>
+    </div>
+
+    <!-- Stat numbers below are editable placeholders until the final library is completed. -->
+    <div class="stats" aria-label="Library at a glance">
+      <div class="stat"><b>200+</b><span>Digital Products</span></div>
+      <div class="stat"><b>15+</b><span>Niches</span></div>
+      <div class="stat"><b>1000s+</b><span>Creator Resources</span></div>
+      <div class="stat"><b>100s+</b><span>Guides &amp; PDFs</span></div>
+      <div class="stat"><b>50,000+</b><span>Reels &amp; Content Assets</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="sec problem">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">You Know You Want To Sell Digital Products. <span class="p">But Creating Everything From Scratch Takes Forever.</span></h2>
+      <p class="lead">Finding ideas, writing products, designing covers, creating mockups and preparing your store can take weeks, and learning how digital-product businesses actually work takes even longer. The library gives you products to start from and guides to learn from.</p>
+    </div>
+    <div class="grid3">
+      <div class="card"><span class="num">01</span><h3>STARTING FROM ZERO</h3><p>You have ideas for a digital-product business, but don't have a catalog of products ready to launch.</p></div>
+      <div class="card"><span class="num">02</span><h3>SPENDING HOURS CREATING</h3><p>Creating ebooks, templates, guides, covers and resources one by one takes huge amounts of time.</p></div>
+      <div class="card"><span class="num">03</span><h3>BUYING EVERYTHING SEPARATELY</h3><p>Instead of paying for individual resources and tools, get a large collection in one library for one payment.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="sec tint">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="label">THE PROCESS</span>
+      <h2 class="h2">Everything You Need To Start Building Your <span class="p">Digital Product Catalog.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="card step"><div class="bubble">1</div><h3>Choose</h3><p>Browse the library, find products that fit your audience and use the guides and tutorials to learn the process.</p></div>
+      <div class="card step"><div class="bubble">2</div><h3>Customize</h3><p>Edit, rebrand and personalize resources according to their individual license terms.</p></div>
+      <div class="card step"><div class="bubble">3</div><h3>Package</h3><p>Combine related products into bundles and offers where permitted.</p></div>
+      <div class="card step"><div class="bubble">4</div><h3>Brand</h3><p>Add your own visual identity, covers and positioning.</p></div>
+      <div class="card step"><div class="bubble">5</div><h3>Sell</h3><p>Sell or use the products according to their included license terms.</p></div>
+      <div class="card step"><div class="bubble">6</div><h3>Grow</h3><p>Build a larger catalog and create more offers over time.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOOK INSIDE -->
+<section class="sec" id="whats-inside">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">A Look Inside The <span class="p">Digital Product Library</span></h2>
+      <p class="lead">Products, PDFs, guides, content resources, reels, creator assets, templates and more — all organized inside one growing library.</p>
+    </div>
+  </div>
+  <div class="rows" aria-label="Product cover previews">
+    <div class="track" id="rowA"></div>
+    <div class="track rev" id="rowB"></div>
+  </div>
+  <div class="wrap"><p class="note">Covers shown are illustrative previews of the kinds of products and categories in the library.</p></div>
+</section>
+
+<!-- NICHES -->
+<section class="sec tint" id="niches">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Explore The <span class="p">Niches</span></h2>
+      <p class="lead">Whatever audience you're building for, there's a ready-made starting point waiting.</p>
+    </div>
+    <div class="pills" id="pills"></div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">What's Inside The <span class="p">Library</span></h2>
+      <p class="lead">A complete collection of products, guides and resources designed to help you start faster.</p>
+    </div>
+    <div class="grid3">
+      <div class="card"><div class="ico" data-icon="grid"></div><h3>200+ DIGITAL PRODUCTS</h3><p>A large collection of ready-made digital products across multiple niches.</p></div>
+      <div class="card"><div class="ico" data-icon="file"></div><h3>GUIDES &amp; PDF RESOURCES</h3><p>Practical guides, PDFs, tutorials and resources to help users learn and implement.</p></div>
+      <div class="card"><div class="ico" data-icon="video"></div><h3>50,000+ REELS &amp; CONTENT</h3><p>A massive collection of reels and content resources for creators and digital-product businesses.</p></div>
+      <div class="card"><div class="ico" data-icon="bulb"></div><h3>CREATOR ASSETS &amp; CLIPS</h3><p>Useful clips, creative assets, cartoons and other content resources.</p></div>
+      <div class="card"><div class="ico" data-icon="tpl"></div><h3>TEMPLATES &amp; EDITABLE RESOURCES</h3><p>Ready-to-use templates and editable resources that users can customize where permitted.</p></div>
+      <div class="card"><div class="ico" data-icon="star"></div><h3>MOCKUPS, COVERS &amp; BONUSES</h3><p>Product covers, mockups and additional resources to help users package and present their products.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERS -->
+<section class="sec tint" id="resources">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">30+ Editable <span class="p">Product Covers</span></h2>
+      <p class="lead">Give your digital products a professional storefront appearance with ready-made cover designs.</p>
+    </div>
+    <div class="gal" id="gal"></div>
+    <p class="note">Illustrative previews. Covers can be customized where applicable.</p>
+  </div>
+</section>
+
+<!-- THREE WAYS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Three Ways To Use Your <span class="p">Digital Product Library</span></h2>
+    </div>
+    <div class="grid3">
+      <div class="card"><span class="num">01 · SELL</span><h3>Sell eligible products</h3><p>Use eligible products to create your own offers and sell them according to the included license.</p></div>
+      <div class="card"><span class="num">02 · GROW</span><h3>Build your brand</h3><p>Use resources, templates, covers and content to build your own digital-product brand.</p></div>
+      <div class="card"><span class="num">03 · STACK</span><h3>Create bundles and bonuses</h3><p>Combine related products into bundles, bonuses or larger offers where the license allows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVERYTHING YOU GET -->
+<section class="sec tint">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Everything You Get. <span class="p">Inside One Library.</span></h2>
+    </div>
+    <div class="counted">
+      <div class="count"><b>200+</b><span>Digital Products</span></div>
+      <div class="count"><b>15+</b><span>Niches</span></div>
+      <div class="count"><b>1000s+</b><span>Creator Resources</span></div>
+      <div class="count txt"><b>Guides &amp; PDFs</b><span>Tutorials &amp; step-by-step material</span></div>
+      <div class="count txt"><b>Reels &amp; Content</b><span>Assets</span></div>
+      <div class="count txt"><b>Templates</b><span>Editable where permitted</span></div>
+      <div class="count txt"><b>Product Covers</b><span>Ready to customize</span></div>
+      <div class="count txt"><b>Mockups</b><span>Present your products</span></div>
+      <div class="count txt"><b>Instant</b><span>Access</span></div>
+      <div class="count txt"><b>One-Time</b><span>Payment</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RIGHTS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="rights">
+      <div class="copy">
+        <span class="label">LICENSE-BASED USAGE</span>
+        <h2 class="h2">Build Your Own <span class="p">Digital Product Catalog.</span></h2>
+        <p>The real value isn't just having products. It's having a starting point you can customize, package, brand and build around.</p>
+        <p>Every statement here stays subject to the actual license provided with the specific resource.</p>
+      </div>
+      <div class="panel">
+        <span class="label">DEPENDING ON THE LICENSE INCLUDED WITH EACH PRODUCT, YOU MAY BE ABLE TO:</span>
+        <ul class="ticks" id="rightsList"></ul>
+        <div class="notice"><span data-icon-inline="shield"></span><span>Usage and resale rights depend on the individual license included with each product.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY READY-MADE -->
+<section class="sec tint">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Why A Ready-Made Library <span class="p">Makes Starting Easier</span></h2>
+    </div>
+    <div class="benefits">
+      <div class="card"><div class="ico soft" data-icon="page"></div><h3>Stop staring at a blank page.</h3></div>
+      <div class="card"><div class="ico soft" data-icon="rocket"></div><h3>Start with products instead of starting from zero.</h3></div>
+      <div class="card"><div class="ico soft" data-icon="grid"></div><h3>Explore multiple niches from one library.</h3></div>
+      <div class="card"><div class="ico soft" data-icon="book"></div><h3>Create your own catalog faster.</h3></div>
+      <div class="card"><div class="ico soft" data-icon="mega"></div><h3>Spend more time marketing and less time creating everything manually.</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="value center">
+      <h2 class="h2">Everything You Need.<br><span class="p">One Library. One Payment.</span></h2>
+      <div class="list" id="valueList"></div>
+      <div class="bigprice"><b>₹499</b><span>ONE-TIME PAYMENT</span></div>
+      <p class="lead" style="margin-top:18px">Get the complete Digital Product Library for one simple payment of ₹499.</p>
+      <div class="ctas" style="margin-top:28px"><a class="btn" href="[CHECKOUT_URL]">BUY THE DIGITAL PRODUCT LIBRARY — ₹499 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec tint" id="how-it-works">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Start In <span class="p">3 Simple Steps.</span></h2>
+    </div>
+    <div class="how">
+      <div class="card"><div class="circ">1</div><h3>GET ACCESS</h3><p>Purchase the Digital Product Library for ₹499.</p></div>
+      <div class="card"><div class="circ">2</div><h3>EXPLORE</h3><p>Access the library and browse the products, guides, PDFs and tutorials relevant to your niche.</p></div>
+      <div class="card"><div class="circ">3</div><h3>CUSTOMIZE &amp; BUILD</h3><p>Customize, brand, package, use or resell eligible resources according to their included license terms.</p></div>
+    </div>
+    <div class="ctas" style="margin-top:44px;justify-content:center"><a class="btn" href="[CHECKOUT_URL]">GET INSTANT ACCESS — ₹499 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+  </div>
+</section>
+
+<!-- INCOME -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="badge">ILLUSTRATIVE EXAMPLES ONLY</span>
+      <h2 class="h2">What Could <span class="p">The Numbers Look Like?</span></h2>
+    </div>
+    <div class="math">
+      <div class="card"><div class="eq">3 sales × ₹499</div><div class="res">= ₹1,497<small>/day</small></div></div>
+      <div class="card"><div class="eq">4 sales × ₹499</div><div class="res">= ₹1,996<small>/day</small></div></div>
+      <div class="card"><div class="eq">10 sales × ₹499</div><div class="res">= ₹4,990<small>/day</small></div></div>
+    </div>
+    <p class="disc"><b>These are simple arithmetic examples, not promises.</b> Actual results depend on your product selection, pricing, traffic, conversion rate, marketing, audience and execution. No income or sales are guaranteed.</p>
+  </div>
+</section>
+
+<!-- WHO FOR -->
+<section class="sec tint">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Is The Digital Product Library <span class="p">For You?</span></h2>
+      <p class="lead">If you want to start building a digital-product business without spending weeks creating every asset from scratch, this library gives you a ready-made starting point.</p>
+    </div>
+    <div class="who" id="whoList"></div>
+  </div>
+</section>
+
+<!-- NOT FOR -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">This Isn't For <span class="p">You If...</span></h2>
+    </div>
+    <div class="not" id="notList"></div>
+  </div>
+</section>
+
+<!-- FINAL OFFER -->
+<section class="sec">
+  <div class="wrap">
+    <div class="offer">
+      <h2 class="h2">Get The Entire Digital Product Library <span class="p">Today.</span></h2>
+      <p class="stack-t"><b>200+ digital products.</b> Multiple niches. Guides &amp; PDFs. Reels &amp; content assets. Templates. Covers. Mockups.<br>All in one library.</p>
+      <div class="pricebox">
+        <div class="amt">₹499</div>
+        <div class="meta">
+          <b><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>ONE-TIME PAYMENT</b>
+          <b><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>INSTANT DIGITAL ACCESS</b>
+        </div>
+      </div>
+      <a class="btn" href="[CHECKOUT_URL]">GET THE FULL LIBRARY — ₹499 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="small-row">Secure payment • One-time payment • Instant digital access</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec tint" id="faqs">
+  <div class="wrap">
+    <div class="sec-head center">
+      <h2 class="h2">Questions, <span class="p">Answered.</span></h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="sec" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="final">
+      <h2 class="h2">Stop Starting From Scratch.</h2>
+      <p class="s">Build your digital-product catalog with a library of ready-made resources.</p>
+      <div class="pr">₹499</div>
+      <div class="pr-l">ONE-TIME PAYMENT</div>
+      <a class="btn light" href="[CHECKOUT_URL]">GET THE DIGITAL PRODUCT LIBRARY <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top"><span class="logo"><svg viewBox="0 0 24 24"><path d="M4 5h4v14H4zM10 5h4v14h-4z"/><path d="M16.5 6.5l3.5 1-3 11.5-3.5-1z"/></svg></span>THE IDEA CO.</a>
+        <p>A library of ready-made digital products, guides, PDFs, content resources, covers, mockups and creator tools.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#whats-inside">What's Inside</a></li>
+          <li><a href="#niches">Niches</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#contact">Terms &amp; Conditions</a></li>
+          <li><a href="#contact">Privacy Policy</a></li>
+          <li><a href="#contact">Refund Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a class="mail" href="mailto:deeprajxyn@gmail.com">deeprajxyn@gmail.com</a></li></ul>
+      </div>
+    </div>
+    <div class="copy-r"><span>© 2026 The Idea Co. All rights reserved.</span><span>Results vary. No income or sales are guaranteed.</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var q=function(s,r){return (r||document).querySelector(s)};
+  var qa=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var P={
+    grid:'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+    book:'M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3zM4 17a3 3 0 0 1 3-3h12',
+    file:'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
+    tpl:'M4 4h16v16H4zM4 9h16M9 9v11',
+    mega:'M4 10v4h3l7 4V6L7 10zM18 9a4 4 0 0 1 0 6',
+    cpu:'M8 8h8v8H8zM12 3v3M12 18v3M3 12h3M18 12h3',
+    dumb:'M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12',
+    brain:'M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 3 5 3 3 0 0 0 5 1V4a3 3 0 0 0-3 0zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-3 5 3 3 0 0 1-5 1V4',
+    video:'M3 6h12v12H3zM15 10l6-3v10l-6-3',
+    brief:'M3 8h18v12H3zM9 8V5h6v3M3 13h18',
+    search:'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4',
+    mail:'M3 5h18v14H3zM3 6l9 7 9-7',
+    rocket:'M5 19c0-4 3-7 7-9 2-1 5-1 7-1 0 2 0 5-1 7-2 4-5 7-9 7M9 15l-4 4M15 9h.01',
+    chart:'M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-3',
+    trend:'M3 17l6-6 4 4 8-8M15 7h6v6',
+    star:'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z',
+    tool:'M14 6a4 4 0 0 0 5 5l-9 9a2.5 2.5 0 0 1-4-4l9-9zM14 6l3-3 3 3-3 3',
+    bulb:'M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 1 2 1 3h6c0-1 0-2 1-3a6 6 0 0 0-4-10z',
+    scale:'M12 4v16M6 20h12M5 8h14M5 8l-3 7a3 3 0 0 0 6 0zM19 8l-3 7a3 3 0 0 0 6 0z',
+    page:'M6 3h9l4 4v14H6zM9 12h7M9 16h5',
+    shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M8.5 12l2.5 2.5 5-5',
+    check:'M5 12l5 5 9-10',
+    x:'M6 6l12 12M18 6L6 18',
+    users:'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2 20c0-3.5 3-6 7-6s7 2.5 7 6M17 5a3 3 0 0 1 0 6M22 20c0-2.5-2-4.5-4.5-5.5'
+  };
+  function svg(k){return '<svg viewBox="0 0 24 24"><path d="'+P[k]+'"/></svg>'}
+  qa('[data-icon]').forEach(function(e){e.innerHTML=svg(e.getAttribute('data-icon'))});
+  qa('[data-icon-inline]').forEach(function(e){e.outerHTML=svg(e.getAttribute('data-icon-inline'))});
+  qa('.side .i').forEach(function(e){e.innerHTML=svg(e.getAttribute('data-i'))+e.textContent});
+
+  /* covers */
+  var C=[
+    ['AI','GUIDE','The AI Prompt Handbook','dark','ring'],
+    ['Marketing','PLANNER','30-Day Marketing Planner','light','bars'],
+    ['Business','WORKBOOK','Offer Builder Workbook','violet','sun'],
+    ['Fitness','PLANNER','Home Workout Planner','green','arc'],
+    ['Mindset','JOURNAL','Reset Your Mindset','rose','ring'],
+    ['Growth','JOURNAL','Daily Habits Journal','sun','diag'],
+    ['Content','TEMPLATES','Content Calendar Kit','ink','grid'],
+    ['SEO','CHECKLIST','SEO Starter Checklist','light','grid'],
+    ['Email','SWIPE FILE','Email Sequences Swipe File','red','bars'],
+    ['Side Hustle','GUIDE','Side Hustle Starter Guide','dark','sun'],
+    ['Productivity','PLANNER','Deep Work Planner','violet','arc'],
+    ['Entrepreneurship','GUIDE','First Customers Guide','green','diag'],
+    ['Sales','TOOLKIT','Sales Script Toolkit','ink','ring'],
+    ['AI','MINI COURSE','Prompt Writing Basics','violet','grid'],
+    ['Social','TEMPLATES','Carousel Idea Pack','sun','bars'],
+    ['Business','CHECKLIST','Launch Day Checklist','rose','diag'],
+    ['Fitness','GUIDE','Meal Prep Made Simple','light','sun'],
+    ['Mindset','WORKBOOK','Confidence Workbook','dark','arc'],
+    ['Marketing','GUIDE','Landing Page Basics','red','ring'],
+    ['Content','GUIDE','Short-Form Video Scripts','ink','bars']
+  ];
+  function cover(i){var c=C[i%C.length];
+    return '<div class="cv t-'+c[3]+' m-'+c[4]+'"><span class="cv-k">'+c[0]+' · '+c[1]+'</span><span class="cv-t">'+c[2]+'</span><i class="cv-a"></i><i class="cv-b"></i><span class="cv-f">The Idea Co.</span></div>'}
+  qa('[data-cover]').forEach(function(e){e.innerHTML=cover(+e.getAttribute('data-cover'))});
+  function fill(id,idx,dup){var h='';idx.forEach(function(i){h+='<div class="cvw">'+cover(i)+'</div>'});q(id).innerHTML=dup?h+h:h}
+  fill('#rowA',[0,1,2,3,4,5,6,7,8,9],true);
+  fill('#rowB',[10,11,12,13,14,15,16,17,18,19],true);
+  fill('#minis',[2,5,6,9,11,13],false);
+  fill('#gal',[14,15,16,17,18,19,0,3,7,10,12,13],false);
+
+  /* tiles */
+  var T=[['book','Ebooks'],['file','Guides'],['tpl','Templates'],['mega','Marketing'],['cpu','AI'],['dumb','Fitness'],['brain','Mindset'],['video','Content Creation'],['brief','Business'],['search','SEO'],['mail','Email Marketing'],['rocket','Side Hustle'],['trend','Sales'],['users','Personal Development'],['grid','+ more']];
+  var th='';T.forEach(function(t){th+='<div class="tile">'+svg(t[0])+t[1]+'</div>'});q('#tiles').innerHTML=th;
+
+  /* pills */
+  var N=['AI','Digital Marketing','Business','Entrepreneurship','Fitness','Mindset','Personal Development','Content Creation','SEO','Email Marketing','Side Hustle','Productivity','Marketing','Sales'];
+  q('#pills').innerHTML=N.map(function(n){return '<span class="pill">'+n+'</span>'}).join('');
+
+  /* lists */
+  var R=['Customize products','Rebrand products','Use products in your business','Create bundles','Sell eligible products','Create bonuses','Build your own digital-product catalog'];
+  q('#rightsList').innerHTML=R.map(function(r){return '<li>'+svg('check')+r+'</li>'}).join('');
+  var V=['200+ Digital Products','Guides &amp; PDF Resources','Reels &amp; Content Assets','Templates &amp; Editable Resources','Product Covers &amp; Mockups','Multiple Niches','Instant Access'];
+  q('#valueList').innerHTML=V.map(function(r){return '<div class="row">'+svg('check')+r+'</div>'}).join('')+'<div class="row">'+svg('check')+'One-Time Payment</div>';
+  var W=['Beginners','Students','Creators','Freelancers','Side-Hustle Builders'];
+  q('#whoList').innerHTML=W.map(function(w){return '<div class="card"><div class="tick">'+svg('check')+'</div><b>'+w+'</b></div>'}).join('');
+  var X=["You're looking for guaranteed income.","You expect products to sell without marketing.","You want a completely passive business with zero effort.","You don't want to customize, market or implement.","You're looking for a get-rich-quick scheme."];
+  q('#notList').innerHTML=X.map(function(r){return '<div class="row">'+svg('x')+r+'</div>'}).join('');
+
+  /* faq */
+  var F=[
+    ['What exactly am I getting?','You are getting access to The Digital Product Library, a collection of 200+ digital products and supporting resources across multiple niches, including guides, PDFs, tutorials, reels and content assets, editable resources, covers and mockups.'],
+    ['Is this one ebook?','No. The Digital Product Library is a collection of multiple digital products and resources. You are not purchasing a single ebook.'],
+    ['How much does it cost?','The complete Digital Product Library is available for ₹499 as a one-time payment.'],
+    ['Is there a monthly subscription?','No. The current offer is a one-time payment of ₹499.'],
+    ['Can I customize the products?','Eligible resources can be customized according to their individual license terms. The exact rights depend on the license provided with each product.'],
+    ['Can I resell the products?','Only products whose included license permits resale can be resold. Always follow the individual license terms provided with each resource.'],
+    ['Can I use the products for my own business?','You may use eligible resources for your own business according to the license terms included with each product.'],
+    ['Do I need design experience?','No advanced design experience is required for the basic workflow. Many resources are designed to provide a ready-made starting point that can be customized where permitted.'],
+    ['Will I definitely make money from the library?','No. The library provides digital products and resources, not guaranteed income. Results depend on product selection, positioning, marketing, traffic, conversion and execution.'],
+    ['How do I receive access?','You will receive digital access after successful payment through the checkout and delivery system.']
+  ];
+  var fq=q('#faq');
+  fq.innerHTML=F.map(function(f,i){return '<details'+(i===0?' open':'')+'><summary>'+f[0]+'</summary><div class="ans">'+f[1]+'</div></details>'}).join('');
+  qa('details',fq).forEach(function(d){d.addEventListener('toggle',function(){if(d.open){qa('details',fq).forEach(function(o){if(o!==d)o.open=false})}})});
+
+  /* menu */
+  var b=q('#burger'),m=q('#menu');
+  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false')});
+  qa('a',m).forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');b.setAttribute('aria-expanded','false')})});
+})();
+</script>
+
+</body></html>
